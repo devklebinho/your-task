@@ -1,0 +1,55 @@
+<div class="container">
+  <h2>Gerenciador de Tarefas</h2>
+
+  <div class="card-formulario">
+    <h3>{{ editando ? 'Editar Tarefa' : 'Nova Tarefa' }}</h3>
+    <form (ngSubmit)="salvarTarefa()">
+      <div class="form-group">
+        <label>Título:</label>
+        <input type="text" [(ngModel)]="novaTarefa.titulo" name="titulo" required placeholder="Digite o título da tarefa...">
+      </div>
+
+      <div class="form-group">
+        <label>Descrição:</label>
+        <textarea [(ngModel)]="novaTarefa.descricao" name="descricao" placeholder="Digite os detalhes da tarefa..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <select [(ngModel)]="novaTarefa.status" name="status">
+          <option value="Pendente">Pendente</option>
+          <option value="Em Andamento">Em Andamento</option>
+          <option value="Concluída">Concluída</option>
+        </select>
+      </div>
+
+      <div class="botoes-form">
+        <button type="submit" class="btn-salvar">{{ editando ? 'Atualizar' : 'Salvar' }}</button>
+        <button type="button" class="btn-cancelar" *ngIf="editando" (click)="resetarFormulario()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <hr>
+
+  <h3>Minhas Tarefas</h3>
+  <div class="lista-grid">
+    <div *ngIf="tarefas.length === 0" class="aviso-vazio">
+      Nenhuma tarefa encontrada. Comece criando uma acima!
+    </div>
+
+    <div class="card-tarefa" *ngFor="let t of tarefas" [ngClass]="t.status.toLowerCase().replace(' ', '-')">
+      <div class="card-header">
+        <h4>{{ t.titulo }}</h4>
+        <span class="badge">{{ t.status }}</span>
+      </div>
+      <p class="descricao">{{ t.descricao }}</p>
+      <small class="data">Criada em: {{ t.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</small>
+      
+      <div class="card-acoes">
+        <button class="btn-editar" (click)="prepararEdicao(t)">Editar</button>
+        <button class="btn-excluir" (click)="excluirTarefa(t.id)">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>
