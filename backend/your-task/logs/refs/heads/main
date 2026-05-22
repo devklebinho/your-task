@@ -1,0 +1,5 @@
+0000000000000000000000000000000000000000 b3352428d04d8ba273cfd34ebf90173222a5f187 devklebinho <contato@klebersilva.dev.br> 1779489169 -0300	commit (initial): setting the environment
+b3352428d04d8ba273cfd34ebf90173222a5f187 b3352428d04d8ba273cfd34ebf90173222a5f187 devklebinho <contato@klebersilva.dev.br> 1779489187 -0300	Branch: renamed refs/heads/master to refs/heads/main
+b3352428d04d8ba273cfd34ebf90173222a5f187 4acfb1da0c9246321a7f479d559e134c9f093115 devklebinho <contato@klebersilva.dev.br> 1779490314 -0300	commit: adding db, vefiry on MSSQL extention and create Controller
+4acfb1da0c9246321a7f479d559e134c9f093115 6d930dbfe50ea65cc8b1cab8b59712385171568c devklebinho <contato@klebersilva.dev.br> 1779490543 -0300	commit: adding swaggersssssssss
+6d930dbfe50ea65cc8b1cab8b59712385171568c 297ba3c7d5f9ff2d82881bf26432196fc752b0c2 devklebinho <contato@klebersilva.dev.br> 1779490938 -0300	commit: setting CORS
