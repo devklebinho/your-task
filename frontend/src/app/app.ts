@@ -5,7 +5,7 @@ import { ListaTarefasComponent } from './components/lista-tarefas/lista-tarefas'
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ListaTarefasComponent], 
+  imports: [ListaTarefasComponent], 
   templateUrl: './app.html', 
   styleUrl: './app.css'
 })
