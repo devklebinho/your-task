@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core'; // <-- 1. Importado ChangeDetectorRef
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TarefaService } from '../../services/tarefa';
@@ -20,7 +20,11 @@ export class ListaTarefasComponent implements OnInit {
   // Controle para saber se estamos editando uma tarefa existente
   editando: boolean = false;
 
-  constructor(private tarefaService: TarefaService) {}
+  // 2. Injetado o cdr no construtor
+  constructor(
+    private tarefaService: TarefaService,
+    private cdr: ChangeDetectorRef 
+  ) {}
 
   ngOnInit(): void {
     this.carregarTarefas();
@@ -29,8 +33,14 @@ export class ListaTarefasComponent implements OnInit {
   // 1. LISTAR (GET)
   carregarTarefas(): void {
     this.tarefaService.getTarefas().subscribe({
-      next: (dados) => this.tarefas = dados,
-      error: (erro) => console.error('Erro ao buscar tarefas:', erro)
+      next: (dados) => {
+        this.tarefas = dados;
+        this.cdr.detectChanges(); // <-- 3. Força o Angular Zoneless a renderizar os dados na hora
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar tarefas:', erro);
+        this.cdr.detectChanges(); // Garante a atualização caso precise exibir estados de erro
+      }
     });
   }
 
@@ -63,6 +73,7 @@ export class ListaTarefasComponent implements OnInit {
   prepararEdicao(tarefa: Tarefa): void {
     this.novaTarefa = { ...tarefa }; // Copia os dados para o formulário
     this.editando = true;
+    this.cdr.detectChanges(); // Garante que os campos do formulário preencham visualmente na hora
   }
 
   // 3. EXCLUIR (DELETE)
@@ -80,5 +91,6 @@ export class ListaTarefasComponent implements OnInit {
   resetarFormulario(): void {
     this.novaTarefa = { titulo: '', descricao: '', status: 'Pendente' };
     this.editando = false;
+    this.cdr.detectChanges(); // Força o formulário a limpar visualmente na hora
   }
 }
